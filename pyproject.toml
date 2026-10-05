@@ -1,0 +1,45 @@
+[project]
+name = "codeveya-search-engine"
+version = "0.1.0"
+description = "Repository intelligence and hybrid code search service (MongoDB-centric) for AI coding platforms."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.30",
+  "pydantic>=2.7",
+  "pydantic-settings>=2.3",
+  "motor>=3.4",
+  "pymongo>=4.8",
+  "tree-sitter>=0.25",
+  "httpx>=0.27",
+  "openai>=1.40",
+  "redis>=5.0",
+  "python-multipart>=0.0.9",
+  "pathspec>=0.12",
+  "tiktoken>=0.7",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.23", "httpx>=0.27", "ruff>=0.5", "mypy>=1.10", "anyio>=4"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+# B008: FastAPI Depends() in defaults is idiomatic; BLE001/S110: fallbacks to
+# local retrieval must never crash the request; RUF100: allow defensive noqa.
+ignore = ["B008", "BLE001", "S110", "SIM103", "PIE810", "RUF100"]
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
